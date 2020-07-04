@@ -23,6 +23,11 @@
             <li>Wait until the file uploads complete.</li>
             <li>Copy and share the URL to share the upload file with someone.</li>
           </ol>
+          
+          <form enctype =  "multipart/form-data" action = "/upload" method = "post">
+            <input type = "file" name = "uploadedFile" />
+            <input type = "submit" value = "Upload Image">
+          </form>
         </div>
         <div class="col-lg-12">
           <p>Note: File can be downloaded only once and the URL will become invalid after that</p>
