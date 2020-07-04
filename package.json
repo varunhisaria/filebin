@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/varunhisaria/filebin/issues"
   },
-  "homepage": "https://github.com/varunhisaria/filebin#readme"
+  "homepage": "https://github.com/varunhisaria/filebin#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

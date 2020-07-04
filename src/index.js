@@ -1,12 +1,12 @@
-var http = require('http');
-var fs = require('fs');
+const express = require("express");
 
-http.createServer(function (req, res) {
-  if ("/" == req.url) {
-    fs.readFile('./html/index.html', function(err, data) {
-      res.writeHead(200, {'Content-Type': 'text/html'});
-      res.write(data);
-      return res.end();
-    });
-  }
-}).listen(8080);
+const app =  express();
+const port = 8080;
+
+app.get('/', (req,res) => {
+  res.sendFile(__dirname + "/html/index.html");
+});
+
+app.listen(port, () => {
+  console.log(`Started server on port ${port}`);
+});
