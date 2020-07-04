@@ -1,0 +1,19 @@
+{
+  "name": "filebin",
+  "version": "1.0.0",
+  "description": "An anonymous file sharing web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varunhisaria/filebin.git"
+  },
+  "author": "varunhisaria@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/varunhisaria/filebin/issues"
+  },
+  "homepage": "https://github.com/varunhisaria/filebin#readme"
+}
