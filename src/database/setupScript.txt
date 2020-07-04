@@ -4,7 +4,6 @@ USE filebin;
 
 CREATE TABLE IF NOT EXISTS `filebin`.`uploads` (
   `upload_id` INT NOT NULL AUTO_INCREMENT,
-  `is_active` TINYINT(1) NOT NULL DEFAULT 1,
   `original_name` VARCHAR(255) NOT NULL,
   `saved_name` VARCHAR(255) NOT NULL,
   `upload_date` DATETIME NOT NULL,
