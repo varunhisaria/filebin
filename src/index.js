@@ -1,8 +1,15 @@
 const express = require("express");
 const multer = require('multer');
+var mysql = require('mysql')
 
 const app =  express();
 const port = 8080;
+var connection = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  password: 'password',
+  database: 'filebin'
+})
 
 const storage = multer.diskStorage(
                   {
@@ -31,7 +38,23 @@ app.post('/upload', (req,res) => {
           console.log(err);
           return res.end("Error uploading file.");
       }
+      console.log(req.file.originalname);
       console.log(req.file.filename);
+      
+      let currDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
+      connection.connect()
+      connection.query(
+        `INSERT INTO uploads \
+        (original_name, saved_name, upload_date) \
+        VALUES \
+        ("${req.file.originalname}", "${req.file.filename}", "${currDateTime}");`,
+        function (err, rows, fields) {
+          if (err) {
+            console.log(err);
+            return res.end("Error uploading file.");
+          }
+      });
+      connection.end()
       res.end("File is uploaded");
   });
 });
