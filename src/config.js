@@ -1,4 +1,4 @@
-// Set server's listening port to 8080
+// Set server's listening
 const listeningPort = 8080;
 
 // Define mysql connection
