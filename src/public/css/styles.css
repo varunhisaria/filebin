@@ -1,0 +1,16 @@
+ol {
+  margin-bottom: 25px !important;
+}
+
+ol li {
+  font-size: 16px !important;
+  margin-bottom: 10px !important;
+}
+
+form input {
+  margin-bottom: 10px !important;
+}
+
+.success {
+  color: green;
+}

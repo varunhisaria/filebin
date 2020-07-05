@@ -5,13 +5,14 @@
     <title>Filebin</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   </head>
 
   <body>
     <div class="jumbotron text-center">
-      <h1>Filebin</h1>
+      <h1><a href="/">Filebin</a></h1>
       <p>An anonymous file sharing web app</p> 
     </div>
     
@@ -21,16 +22,20 @@
           <ol>
             <li>Click "Upload file" button below to upload the file you want to share.</li>
             <li>Wait until the file uploads complete.</li>
-            <li>Copy and share the URL to share the upload file with someone.</li>
+            <li>Copy and share the URL to share the uploaded file with someone.</li>
           </ol>
           
           <form enctype =  "multipart/form-data" action = "/upload" method = "post">
             <input type = "file" name = "uploadedFile" />
-            <input type = "submit" value = "Upload Image">
+            <input type = "submit" value = "Upload File">
           </form>
         </div>
         <div class="col-lg-12">
-          <p>Note: File can be downloaded only once and the URL will become invalid after that</p>
+          <br/>
+          <p class="success">{{status}}</p>
+          <p>{{filename}}</p>
+          <br/>
+          <p><b>Note:</b> File can be downloaded only once and the URL will become invalid after that</p>
         </div>
       </div>
     </div>
