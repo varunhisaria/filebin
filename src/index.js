@@ -135,8 +135,7 @@ app.post('/upload', (req,res) => {
   }
 });
 
-app.use((req, res,next) => {
-  console.log("Received invalid request");
+app.use((req, res, next) => {
   res.render('error.hbs', { error: "Oops! Something went wrong"});
 });
 
