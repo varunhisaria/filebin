@@ -9,4 +9,4 @@ Filebin is an anonymous file sharing web app where users can upload files upto 2
 - Install node v10.9.0
 - Set server's listening port and base URL in config.js
 - Install dependencies using `npm i`
-- Start node server by executing `node src/index.js` from the root directory's location
+- Start node server by executing `npm start` from the root directory's location
