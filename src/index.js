@@ -4,20 +4,15 @@ const multer = require('multer');
 const mysql = require('mysql')
 const hbs = require('hbs');
 const fs = require('fs')
+// Import configurations
+const config = require('./config.js');
+
+// Create mysql database connection
+const dbConnection = mysql.createConnection(config.mysqlConnectionParams);
 
 const app = express();
-// Set server's listening port to 8080
-const port = 8080;
-// Define mysql connection
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: 'filebin'
-})
-
-app.use(express.static(__dirname + '/public'))
 app.set('view engine', 'hbs');
+app.use(express.static(__dirname + '/public'))
 app.set('views', __dirname + '/html');
 
 // Create multer storage object
@@ -34,7 +29,7 @@ const upload = multer(
                 {
                   storage: storage,
                   limits : {
-                    fileSize: 20 * 1024 * 1024 // 20 MB
+                    fileSize: config.maxUploadFileSize
                   }
                 }
               ).single('uploadedFile');
@@ -47,7 +42,7 @@ app.get('/download/:id', (req,res) => {
   let savedName = req.params.id;
   // TODO: Validate id
   let currDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-  connection.query(
+  dbConnection.query(
     `UPDATE uploads
     SET download_date = "${currDateTime}" \
     WHERE saved_name = '${savedName}' \
@@ -59,7 +54,7 @@ app.get('/download/:id', (req,res) => {
         res.render('error.hbs', { error: "Oops! Something went wrong"});
       } else if (rows.affectedRows == 1) {
         console.log("File not downloaded yet");
-        connection.query(
+        dbConnection.query(
           `SELECT original_name \
           FROM uploads \
           WHERE saved_name = '${savedName}';`,
@@ -109,7 +104,7 @@ app.post('/upload', (req,res) => {
         console.log(req.file.filename);
         
         let currDateTime = new Date().toISOString().slice(0, 19).replace('T', ' ');
-        connection.query(
+        dbConnection.query(
           `INSERT INTO uploads \
           (original_name, saved_name, upload_date) \
           VALUES \
@@ -120,7 +115,7 @@ app.post('/upload', (req,res) => {
               res.render('error.hbs', { error: "Oops! Something went wrong"});
             }
         });
-        res.render('index.hbs', { status: "Upload successful", filename: `Share this URL: http://localhost:8080/download/${req.file.filename}` });
+        res.render('index.hbs', { status: "Upload successful", fileURL: `Share this URL: ${config.baseURL}/download/${req.file.filename}` });
       }
   });
 });
@@ -129,7 +124,7 @@ app.use((req, res,next) => {
   res.render('error.hbs', { error: "Oops! Something went wrong"});
 });
 
-connection.connect();
-app.listen(port, () => {
-  console.log(`Started server on port ${port}`);
+dbConnection.connect();
+app.listen(config.listeningPort, () => {
+  console.log(`Started server on port ${config.listeningPort}`);
 });
